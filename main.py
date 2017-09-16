@@ -13,6 +13,4 @@ parameters = list(
 
 if activity == 'search':
     search_in_google(parameters)
-else:
-    print("NADA")
 
