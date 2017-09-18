@@ -1,6 +1,8 @@
 # App files and folders
 /**/__pycache__
-/ENV
+/bin
+/lib
+/pip-selfcheck.json
 
 # OS and IDE files and folders
 /.idea
