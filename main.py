@@ -6,13 +6,10 @@ app = Flask('motor-search-ecommerces', template_folder='resources/views')
 
 @app.route('/')
 def home():
-
     return render_template('index.html')
-
 
 @app.route('/search/<terms>')
 def search_term(terms):
-
     found_domains = GoogleSearch().search_for(terms)
 
     return jsonify({

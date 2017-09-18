@@ -1,1 +1,1 @@
-web: FLASK_APP=main.py FLASK_DEBUG=1 flask run
+web: gunicorn -w 4 main:app
