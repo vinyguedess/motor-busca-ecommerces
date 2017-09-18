@@ -8,7 +8,9 @@ import re
 
 class GoogleSearch():
 
-    _search_url = "https://www.google.com.br/search?num=3&q=%s"
+    _number = 100
+
+    _search_url = "https://www.google.com.br/search?num=%d&q=%s"
     _netim_url = "https://www.netim.com/ajax/domaine.php"
     _receitaws_url = "https://www.receitaws.com.br/v1/cnpj/%s"
 
@@ -46,7 +48,7 @@ class GoogleSearch():
         return list(found_items)
 
     def google_research(self, term):
-        request = requests.get(self._search_url % term)
+        request = requests.get(self._search_url % (self._limit, term))
         crawler = BeautifulSoup(request.text, 'html.parser')
 
         found_itens = []
@@ -85,3 +87,7 @@ class GoogleSearch():
             return domain
 
         return url.replace('/', '')
+
+    def set_limit(self, limit):
+        self._limit = limit
+        return self

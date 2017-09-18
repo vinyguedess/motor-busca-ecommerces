@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from app.Services.DomainSearchServices import GoogleSearch
+from app.Services.DomainSearchService import GoogleSearch
 
 
 app = Flask('motor-search-ecommerces', template_folder='resources/views')
