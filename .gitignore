@@ -1,6 +1,5 @@
 # App files and folders
 /**/__pycache__
-/data/**/*.json
 /ENV
 
 # OS and IDE files and folders

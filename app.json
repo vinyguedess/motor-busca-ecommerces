@@ -1,0 +1,8 @@
+{
+    "name": "Motor Search Ecommerces",
+    "description": "A web engine that seeks for ecommerces through de internet.",
+    "image": "heroku/python",
+    "repository": "https://github.com/vinyguedess/motor-search-ecommerces",
+    "keywords": ["crawler", "search", "ecommerce"],
+    "addons": [ "heroku-postgresql" ]
+}

@@ -1,16 +1,21 @@
-import sys
-from Activities import search_in_google
+from flask import Flask, render_template, jsonify
+from app.Services.DomainSearchServices import GoogleSearch
 
-CLIparameters = sys.argv
 
-activity = CLIparameters[1]
-parameters = list(
-    filter(
-        lambda x: x is not None, 
-        [item if index > 1 else None for index, item in enumerate(CLIparameters)]
-    )
-)
+app = Flask('motor-search-ecommerces', template_folder='resources/views')
 
-if activity == 'search':
-    search_in_google(parameters)
+@app.route('/')
+def home():
 
+    return render_template('index.html')
+
+
+@app.route('/search/<terms>')
+def search_term(terms):
+
+    found_domains = GoogleSearch().search_for(terms)
+
+    return jsonify({
+        'status': True,
+        'data': found_domains
+    })
