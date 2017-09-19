@@ -2,9 +2,14 @@
 python_version = '3.4'
 
 [packages]
-
 beautifulsoup4 = "*"
 flask = "*"
 gunicorn = "*"
 psycopg2 = "*"
 requests = "*"
+
+[dev-packages]
+codecov = "*"
+coverage = "*"
+
+
