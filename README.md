@@ -1,5 +1,5 @@
 [![Travis](https://img.shields.io/travis/vinyguedess/motor-search-ecommerces.svg)](https://travis-ci.org/vinyguedess/motor-search-ecommerces)
-
+[![Codecov](https://img.shields.io/codecov/c/github/vinyguedess/motor-search-ecommerces.svg)](https://codecov.io/gh/vinyguedess/motor-search-ecommerces)
 
 # Motor de busca de ECommerces
 Motor responsável por rastrear Ecommerces pela internet.
