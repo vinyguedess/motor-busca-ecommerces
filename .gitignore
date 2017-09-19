@@ -2,6 +2,7 @@
 /**/__pycache__
 /bin
 /coverage
+/coverage.xml
 /lib
 /pip-selfcheck.json
 
