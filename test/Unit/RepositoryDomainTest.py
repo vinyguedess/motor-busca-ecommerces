@@ -9,7 +9,7 @@ class RepositoryDomainTest(TestCase):
     _conn = None
 
     def setUp(self):
-        self._conn = Connection(Config.get('db.host'), Config.get('db.name'), Config.get('db.user'), Config.get('db.pass'))
+        self._conn = Connection(Config.get('DB_HOST'), Config.get('DB_NAME'), Config.get('DB_USER'), Config.get('DB_PASS'))
         Config.set('db.conn', self._conn)
 
     def test_if_db_authentication_data_is_loaded(self):
