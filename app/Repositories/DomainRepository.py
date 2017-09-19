@@ -1,14 +1,16 @@
 from json import dumps
+from app.Entities.Domain import Domain
+from app.Core import ErrorsManager
 
 
-class DomainService():
+class DomainRepository(ErrorsManager):
 
     _conn = None
 
     def __init__(self, conn):
         self._conn = conn
 
-    def insert_domain(self, domain):
+    def insert(self, domain):
         try:
             query = "INSERT INTO domains (domain, hubspot_id, metadata) VALUES (%s, %s, %s) RETURNING id;"
 
@@ -21,10 +23,14 @@ class DomainService():
             return True
         except Exception as ex:
             self._conn.rollback()
+            self.addError(ex.args)
             return False
 
-    def update_domain(self, domain):
+    def update(self, domain):
         try:
+            if not domain.id:
+                raise Exception("ID required before updating Entity")
+
             query = "UPDATE domains SET hubspot_id = %s, metadata = %s WHERE id = %s;"
 
             cursor = self._conn.getConn()
@@ -33,9 +39,30 @@ class DomainService():
 
             return True
         except Exception as ex:
-            print(ex)
             self._conn.rollback()
+            self.addError(ex.args)
             return False
+
+    def find_by_id(self, id):
+        query = "SELECT * FROM domains WHERE id = %s;"
+
+        cursor = self._conn.getConn()
+        cursor.execute(query, [ id ])
+        
+        result = cursor.fetchone()
+        if not result:
+            return None
+        
+        return self.map_domain_to_object(result)
+
+    def map_domain_to_object(self, result):
+        domain = Domain()
+        domain.id = result[0]
+        domain.hubspot_id = result[3]
+        domain.domain = result[1]
+        domain.metadata = result[2]
+
+        return domain
 
     def check_if_domain_exists(self, domain):
         query = "SELECT COUNT(*) AS total FROM domains WHERE domain = '%s';"

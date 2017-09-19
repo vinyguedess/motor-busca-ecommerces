@@ -56,3 +56,17 @@ class Config:
         dot_env.close()
 
         Config._loadedDotEnv=True
+
+
+class ErrorsManager():
+
+    _errors = []
+
+    def addError(self, message):
+        self._errors.append(message)
+
+    def getErrors(self):
+        return self._errors
+
+    def hasErrors(self):
+        return len(self._errors) > 0

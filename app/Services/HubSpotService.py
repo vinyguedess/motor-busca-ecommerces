@@ -1,8 +1,9 @@
 import requests
 from json import dumps
+from app.Core import ErrorsManager
 
 
-class HubSpotService:
+class HubSpotService(ErrorsManager):
 
     _hapiKey = None
     _hubSpotApi = "https://api.hubapi.com%s?hapikey=%s"
@@ -31,7 +32,7 @@ class HubSpotService:
 
             return True
         except Exception as ex:
-            print(ex)
+            self.addError(ex.args)
             return False
 
     def execute_request(self, method, url, params={}):
@@ -44,10 +45,6 @@ class HubSpotService:
 
         if method == 'POST':
             return requests.post(url, headers=headers, data=dumps(params))
-        if method == 'PUT':
-            return requests.put(url, headers=headers, data=dumps(params))
-
-        return request.get(url, headers=headers)
 
     def translate_field(self, field):
         if field == 'zipcode':
