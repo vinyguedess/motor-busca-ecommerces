@@ -10,6 +10,7 @@ class RepositoryDomainTest(TestCase):
 
     def setUp(self):
         self._conn = Connection(Config.get('db.host'), Config.get('db.name'), Config.get('db.user'), Config.get('db.pass'))
+        Config.set('db.conn', self._conn)
 
     def test_if_db_authentication_data_is_loaded(self):
         self.assertEqual(Config.get('db.port'), '5432')

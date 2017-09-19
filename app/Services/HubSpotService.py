@@ -1,6 +1,7 @@
 import requests
 from json import dumps
 from app.Core import ErrorsManager
+from app.Entities.Deal import Deal
 
 
 class HubSpotService(ErrorsManager):
@@ -28,10 +29,41 @@ class HubSpotService(ErrorsManager):
             response = self.execute_request('POST', '/companies/v2/companies', domain_to_be_inserted)
             
             result = response.json()
-            domain.hubspot_id = result['portalId']
+            if 'status' in result and result['status'] == 'error':
+                raise Exception(result['message'])
+
+            domain.hubspot_id = result['companyId']
 
             return True
         except Exception as ex:
+            self.addError(ex.args)
+            return False
+
+    def insert_deal(self, deal):
+        deal_to_be_inserted = {
+            'associations': {
+                'associatedCompanyIds': [ deal.company.hubspot_id ]
+            },
+            'properties': []
+        }
+
+        for field, value in deal.metadata.items():
+            deal_to_be_inserted['properties'].append({
+                'name': field, 'value': value
+            })
+
+        try:
+            response = self.execute_request('POST', '/deals/v1/deal', deal_to_be_inserted)
+
+            result = response.json()
+            if 'status' in result and result['status'] == 'error':
+                raise Exception(result['message'])
+
+            deal.id = result['dealId']
+
+            return True
+        except Exception as ex:
+            print(ex)
             self.addError(ex.args)
             return False
 
