@@ -7,9 +7,3 @@ flask = "*"
 gunicorn = "*"
 psycopg2 = "*"
 requests = "*"
-
-[dev-packages]
-codecov = "*"
-coverage = "*"
-
-
