@@ -1,5 +1,6 @@
 # App files and folders
 /**/__pycache__
+/.env
 /bin
 /coverage
 /coverage.xml
