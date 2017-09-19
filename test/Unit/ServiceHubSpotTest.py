@@ -26,7 +26,7 @@ class ServiceHubSpotTest(TestCase):
             'city': 'São Paulo',
             'state': 'SP'
         }
-        self.assertTrue(HubSpotService(Config.get('hubspot.hapikey')).insert_company(domain))
+        self.assertTrue(HubSpotService(Config.get('HUBSPOT_HAPIKEY')).insert_company(domain))
 
         self.assertTrue(DomainRepository(self._conn).insert(domain))
         Config.set('domain2.id', domain.id)
@@ -37,7 +37,7 @@ class ServiceHubSpotTest(TestCase):
         domain.metadata = {
             'non-defined-field': False
         }
-        self.assertFalse(HubSpotService(Config.get('hubspot.hapikey')).insert_company(domain))
+        self.assertFalse(HubSpotService(Config.get('HUBSPOT_HAPIKEY')).insert_company(domain))
 
     def test_insert_deal(self):
         
@@ -55,7 +55,7 @@ class ServiceHubSpotTest(TestCase):
             'pipeline': 'default',
             'dealstage': 'appointmentscheduled'
         }
-        self.assertTrue(HubSpotService(Config.get('hubspot.hapikey')).insert_deal(deal))
+        self.assertTrue(HubSpotService(Config.get('HUBSPOT_HAPIKEY')).insert_deal(deal))
 
     def test_error_inserting_deal(self):
         domain = DomainRepository(self._conn).find_by_id(Config.get('domain.id'))
@@ -65,4 +65,4 @@ class ServiceHubSpotTest(TestCase):
         deal.metadata = {
             'should_bring_what': 'some_error'
         }
-        self.assertFalse(HubSpotService(Config.get('hubspot.hapikey')).insert_deal(deal))
+        self.assertFalse(HubSpotService(Config.get('HUBSPOT_HAPIKEY')).insert_deal(deal))
