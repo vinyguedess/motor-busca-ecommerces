@@ -4,6 +4,7 @@ import os.path
 import requests
 from urllib.parse import urlparse
 import re
+from app.Entities.Domain import Domain
 
 
 class GoogleSearch():
@@ -37,7 +38,7 @@ class GoogleSearch():
             item['company']['joint_stock'] = float(info['capital_social'])
             item['company']['contacts'] = { 'email': info['email'], 'phone': info['telefone'] }
 
-            return item
+            return self.transpile_item_to_domain(item)
 
         found_items = self.google_research(term)
         found_items = filter(
@@ -87,6 +88,14 @@ class GoogleSearch():
             return domain
 
         return url.replace('/', '')
+
+    def transpile_item_to_domain(self, item):
+        domain = Domain()
+
+        domain.domain = item['seo']['url']
+        domain.metadata = item['company'].update(item['address'])
+
+        return domain
 
     def set_limit(self, limit):
         self._limit = limit
